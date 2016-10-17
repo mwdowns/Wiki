@@ -8,11 +8,13 @@ db.debug = True
 
 @app.route("/")
 def home_page():
-    return redirect("/homepage")
+    return render_template(
+    "homepage.html"
+    )
 
 @app.route("/<page_name>")
 def place_holder(page_name):
-    query = db.query("select * from page where title = '%s'" % page_name).namedresult()
+    query = db.query("select * from page where title = $1", page_name).namedresult()
     if len(query) == 0:
         return render_template(
             "placeholderpage.html",
@@ -32,7 +34,7 @@ def place_holder(page_name):
 
 @app.route("/<page_name>/edit")
 def edit_page(page_name):
-    query = db.query("select * from page where title = '%s'" % page_name).namedresult()
+    query = db.query("select * from page where title = $1", page_name).namedresult()
     if len(query) == 0:
         return render_template(
             "edit.html",
@@ -84,7 +86,7 @@ def all_pages():
 @app.route("/search")
 def search_pages():
     search = request.args.get("search")
-    page = db.query("select title from page where title = '%s'" % search).namedresult()
+    page = db.query("select title from page where title = $1", search).namedresult()
     print search
     print page
     if len(page) == 0:

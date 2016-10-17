@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block body %}
+<h1> Welcome to the Matt Wiki!</h1>
+
+<p>This wiki contains the pages below. If you don't see anything interesting, type in the topic of a page you'd like to create into the search bar above and then edit and create away!</p>
+
+<ul>
+{% for item in query %}
+
+    <li><a href="/{{item.title}}">{{item.title}}</a></li>
+
+{% endfor %}
+</ul>
+{% endblock %}
