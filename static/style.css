@@ -3,3 +3,12 @@ body {
   color: orange;
   font-family: cursive;
 }
+
+.user {
+  text-align: right;
+}
+
+a:link, a:visited {
+  color: pink;
+  text-decoration: none;
+}
