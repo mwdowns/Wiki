@@ -56,6 +56,7 @@ def save_content(page_name):
     last_mod_date = request.form.get("last_mod_date")
     action = request.form.get("submit_button")
     if action == "update":
+        print "im gonna update"
         db.update(
             "page", {
                 "id": id,
@@ -65,6 +66,7 @@ def save_content(page_name):
             }
         )
     elif action == "create":
+        print "im gonna create"
         db.insert (
             "page",
             title=page_name,
@@ -72,6 +74,7 @@ def save_content(page_name):
             author_name=author_name
         )
     else:
+        print "i did nothing"
         pass
     return redirect("/%s" % page_name)
 
