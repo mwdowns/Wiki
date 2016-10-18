@@ -129,26 +129,28 @@ def login_user():
 
 @app.route("/signup")
 def signup_user():
+    id = request.args.get("id")
     user_name = request.args.get("user_name")
     password = request.args.get("password")
     query = db.query("select * from users where user_name = $1 and password = $2", user_name, password).namedresult()
+    print user_name
+    print password
+    print query
     if len(query) == 0:
-        print user_name
-        print password
         return render_template(
-            "login.html"
+            "signup.html"
         )
+        db.insert (
+            "users",
+            id=id,
+            user_name=user_name,
+            password=password
+        )
+        return redirect ("/login")
     else:
-        user = query[0]
-        if user.name == user_name and user.password == password:
-            session['username'] = user.user_name
-            return redirect("/")
-        else:
-            print "sorry, that wasn't there"
-            return render_template(
+        return render_template(
                 "login.html"
-            )
-
+        )
 
 @app.route("/logout")
 def logout_user():
